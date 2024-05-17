@@ -7,26 +7,14 @@ import (
 	"net"
 
 	"user.services/config"
-	userPb "user.services/proto" // Import protobuf for user service
-
+	// Import protobuf for user service
 	"google.golang.org/grpc"
-	"google.golang.org/grpc/credentials/insecure"
 	"google.golang.org/grpc/metadata"
 )
 
-type (
-	GrpcClientFactoryHandler interface {
-		User() userPb.UserGrpcServiceClient
-	}
-
-	grpcClientFactory struct {
-		client *grpc.ClientConn
-	}
-
-	grpcAuth struct {
-		secretKey string
-	}
-)
+type grpcAuth struct {
+	secretKey string
+}
 
 func (g *grpcAuth) unaryAuthorization(ctx context.Context, req any, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (any, error) {
 	md, ok := metadata.FromIncomingContext(ctx)
@@ -55,23 +43,6 @@ func (g *grpcAuth) unaryAuthorization(ctx context.Context, req any, info *grpc.U
 	// log.Printf("claims: %v", claims)
 
 	return handler(ctx, req)
-}
-
-func (g *grpcClientFactory) User() userPb.UserGrpcServiceClient {
-	return userPb.NewUserGrpcServiceClient(g.client)
-}
-
-func NewGrpcClient(host string) (GrpcClientFactoryHandler, error) {
-	opts := make([]grpc.DialOption, 0)
-	opts = append(opts, grpc.WithTransportCredentials(insecure.NewCredentials()))
-	clientConn, err := grpc.Dial(host, opts...)
-	if err != nil {
-		log.Printf("Error: Grpc client connection failed: %s", err.Error())
-		return nil, errors.New("error: grpc client connection failed")
-	}
-	return &grpcClientFactory{
-		client: clientConn,
-	}, nil
 }
 
 func NewGrpcServer(cfg *config.Jwt, host string) (*grpc.Server, net.Listener) {
