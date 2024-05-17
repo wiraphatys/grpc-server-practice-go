@@ -1,9 +1,9 @@
 package main
 
 import (
-	"user-services/config"
-	"user-services/databases"
-	"user-services/servers"
+	"user.services/config"
+	"user.services/databases"
+	"user.services/servers"
 )
 
 func main() {

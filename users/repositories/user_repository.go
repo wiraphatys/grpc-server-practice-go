@@ -1,7 +1,7 @@
 package repositories
 
 import (
-	"user-services/entities"
+	"user.services/entities"
 
 	"gorm.io/gorm"
 )

@@ -2,10 +2,10 @@ package handlers
 
 import (
 	"strings"
-	"user-services/entities"
-	"user-services/services"
 
 	"github.com/gofiber/fiber/v2"
+	"user.services/entities"
+	"user.services/services"
 )
 
 type userHandler struct {

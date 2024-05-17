@@ -1,8 +1,8 @@
 package services
 
 import (
-	"user-services/entities"
-	"user-services/repositories"
+	"user.services/entities"
+	"user.services/repositories"
 )
 
 type userService struct {

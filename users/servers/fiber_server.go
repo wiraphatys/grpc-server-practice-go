@@ -3,13 +3,13 @@ package servers
 import (
 	"fmt"
 	"log"
-	"user-services/config"
-	"user-services/handlers"
-	"user-services/repositories"
-	"user-services/services"
 
 	"github.com/gofiber/fiber/v2"
 	"gorm.io/gorm"
+	"user.services/config"
+	"user.services/handlers"
+	"user.services/repositories"
+	"user.services/services"
 )
 
 type fiberServer struct {

@@ -1,0 +1,16 @@
+syntax = "proto3";
+option go_package = "user.services";
+
+message FindUserRequest {
+  string email = 1;
+}
+
+message UserProfile {
+  int32 id = 1;
+  string email = 2;
+  string tel = 3;
+}
+
+service UserGrpcService {
+  rpc GetUserByEmailGRPC(FindUserRequest) returns (UserProfile);
+}

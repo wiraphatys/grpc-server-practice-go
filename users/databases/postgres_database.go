@@ -2,10 +2,10 @@ package databases
 
 import (
 	"fmt"
-	"user-services/config"
 
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
+	"user.services/config"
 )
 
 type postgresDatabase struct {

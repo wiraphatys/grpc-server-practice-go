@@ -2,9 +2,10 @@ package main
 
 import (
 	"fmt"
-	"user-services/config"
-	"user-services/databases"
-	"user-services/entities"
+
+	"user.services/config"
+	"user.services/databases"
+	"user.services/entities"
 )
 
 func main() {
