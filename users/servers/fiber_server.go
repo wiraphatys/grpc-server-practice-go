@@ -4,6 +4,9 @@ import (
 	"fmt"
 	"log"
 	"user-services/config"
+	"user-services/handlers"
+	"user-services/repositories"
+	"user-services/services"
 
 	"github.com/gofiber/fiber/v2"
 	"gorm.io/gorm"
@@ -26,10 +29,19 @@ func NewFiberServer(cfg *config.Config, db *gorm.DB) Server {
 func (s *fiberServer) Start() {
 	url := fmt.Sprintf("%v:%d", s.cfg.Server.Host, s.cfg.Server.Port)
 
-	// init module
+	// healthcheck
 	s.app.Get("/", func(c *fiber.Ctx) error {
 		return c.SendString("User server is running . . .")
 	})
+
+	// connect all layer
+	repository := repositories.NewUserRepository(s.db)
+	service := services.NewUserService(repository)
+	hander := handlers.NewUserHandler(service)
+
+	// router
+	router := s.app.Group("/users")
+	router.Post("/", hander.CreateUser)
 
 	// log
 	log.Printf("User server is starting on %v", url)
