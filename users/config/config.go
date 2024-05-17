@@ -11,6 +11,7 @@ type Config struct {
 	Server Server `mapstructure:",squash"`
 	Db     Db     `mapstructure:",squash"`
 	Jwt    Jwt    `mapstructure:",squash"`
+	Grpc   Grpc   `mapstructure:",squash"`
 }
 
 type Server struct {
