@@ -42,6 +42,7 @@ func (s *fiberServer) Start() {
 	// router
 	router := s.app.Group("/users")
 	router.Post("/", hander.CreateUser)
+	router.Get("/:email", hander.GetUserByEmail)
 
 	// log
 	log.Printf("User server is starting on %v", url)

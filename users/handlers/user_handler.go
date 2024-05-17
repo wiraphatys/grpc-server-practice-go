@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"strings"
 	"user-services/entities"
 	"user-services/services"
 
@@ -27,6 +28,23 @@ func (h *userHandler) CreateUser(c *fiber.Ctx) error {
 	}
 
 	result, err := h.userService.CreateUser(payload)
+	if err != nil {
+		return c.JSON(fiber.Map{
+			"success": false,
+			"message": err.Error(),
+		})
+	}
+
+	return c.JSON(fiber.Map{
+		"success": true,
+		"data":    result,
+	})
+}
+
+func (h *userHandler) GetUserByEmail(c *fiber.Ctx) error {
+	email := strings.Trim(c.Params("email"), " ")
+
+	result, err := h.userService.GetUserByEmail(email)
 	if err != nil {
 		return c.JSON(fiber.Map{
 			"success": false,

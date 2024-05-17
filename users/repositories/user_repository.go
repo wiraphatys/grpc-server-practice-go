@@ -24,3 +24,13 @@ func (r *userRepository) InsertUser(user *entities.User) (*entities.User, error)
 
 	return user, nil
 }
+
+func (r *userRepository) FindUserByEmail(email string) (*entities.User, error) {
+	var existedUser *entities.User
+	err := r.db.First(&existedUser, "email = ?", email).Error
+	if err != nil {
+		return nil, err
+	}
+
+	return existedUser, nil
+}
