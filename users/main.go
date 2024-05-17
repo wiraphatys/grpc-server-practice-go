@@ -1,7 +1,14 @@
 package main
 
-import "fmt"
+import (
+	"user-services/config"
+	"user-services/databases"
+	"user-services/servers"
+)
 
 func main() {
-	fmt.Println("Hello World")
+	cfg := config.GetConfig()
+	db := databases.NewPostgresDatabase(cfg)
+
+	servers.NewFiberServer(cfg, db.GetDb()).Start()
 }
