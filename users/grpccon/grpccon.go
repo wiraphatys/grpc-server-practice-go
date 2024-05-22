@@ -34,13 +34,11 @@ func (g *grpcAuth) unaryAuthorization(ctx context.Context, req any, info *grpc.U
 		return nil, errors.New("error: metadata not found")
 	}
 
-	// ตรงนี้คุณสามารถตรวจสอบ JWT token ได้
-	// claims, err := jwtauth.ParseToken(g.secretKey, string(authHeader[0]))
-	// if err != nil {
-	//     log.Printf("Error: Parse token failed: %s", err.Error())
-	//     return nil, errors.New("error: token is invalid")
-	// }
-	// log.Printf("claims: %v", claims)
+	// verify api-key
+	if authHeader[0] != config.GetConfig().Key.ApiKey {
+		log.Printf("Error: API KEY is invalid")
+		return nil, errors.New("error: API KEY is invalid")
+	}
 
 	return handler(ctx, req)
 }

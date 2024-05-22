@@ -1,7 +1,12 @@
 package main
 
-import "fmt"
+import (
+	"auth.services/config"
+	"auth.services/servers"
+)
 
 func main() {
-	fmt.Println("hello auth service")
+	cfg := config.GetConfig()
+
+	servers.NewFiberServer(cfg).Start()
 }

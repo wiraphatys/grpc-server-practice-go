@@ -1,5 +1,12 @@
 package repositories
 
+import (
+	"context"
+
+	"auth.services/entities"
+	userPb "auth.services/proto"
+)
+
 type AuthRepository interface {
-	FindUserByEmailGRPC(email string)
+	FindUserByEmailGRPC(pctx context.Context, grpcUrl string, req *userPb.FindUserRequest) (*entities.User, error)
 }

@@ -11,6 +11,7 @@ type Config struct {
 	Server Server `mapstructure:",squash"`
 	Db     Db     `mapstructure:",squash"`
 	Jwt    Jwt    `mapstructure:",squash"`
+	Key    Key    `mapstructure:",squash"`
 	Grpc   Grpc   `mapstructure:",squash"`
 }
 
@@ -32,6 +33,10 @@ type Db struct {
 type Jwt struct {
 	Secret     string `mapstructure:"JWT_SECRET"`
 	Expiration int    `mapstructure:"JWT_EXPIRATION"`
+}
+
+type Key struct {
+	ApiKey string `mapstructure:"API_KEY"`
 }
 
 type Grpc struct {
