@@ -25,8 +25,9 @@ func (g *userGrpcHandler) GetUserByEmailGRPC(ctx context.Context, req *userPb.Fi
 	}
 
 	return &userPb.UserProfile{
-		Id:    int32(result.UID),
-		Email: result.Email,
-		Tel:   result.Tel,
+		Id:       int32(result.UID),
+		Email:    result.Email,
+		Password: result.Password,
+		Tel:      result.Tel,
 	}, nil
 }
